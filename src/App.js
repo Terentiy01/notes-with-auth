@@ -1,7 +1,12 @@
 import React from 'react'
+import Welcome from './components/Welcome'
 
 function App() {
-  return <div></div>
+  return (
+    <div>
+      <Welcome />
+    </div>
+  )
 }
 
 export default App
