@@ -2,8 +2,14 @@ import React from 'react'
 
 function Welcome() {
   return (
-    <div>
-      <h1>Добро пожаловать, boy!</h1>
+    <div className="welcome">
+      <h1>Todo-list</h1>
+      <div className="login-container">
+        <input type="email" />
+        <input type="password" />
+        <button>Войдите</button>
+        <a href="">Зарегистрироваться</a>
+      </div>
     </div>
   )
 }
