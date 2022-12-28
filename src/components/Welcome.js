@@ -29,9 +29,6 @@ function Welcome() {
         navigate('/homepage')
       })
       .catch((err) => alert(err.message))
-      .finally(() => {
-        console.log('рпаботает')
-      })
   }
 
   return (
