@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 function Welcome() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isRegistering, setIsRegistering] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
