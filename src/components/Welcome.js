@@ -11,6 +11,11 @@ function Welcome() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
+  const [registerInfo, setRegisterInfo] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
 
   const navigate = useNavigate()
 
@@ -31,6 +36,22 @@ function Welcome() {
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigate('/homepage')
+      })
+      .catch((err) => alert(err.message))
+  }
+
+  const handleRegister = () => {
+    if (registerInfo.password !== registerInfo.confirmPassword) {
+      alert('Пароли не совпадают')
+      return
+    }
+    createUserWithEmailAndPassword(
+      auth,
+      registerInfo.email,
+      registerInfo.password
+    )
       .then(() => {
         navigate('/homepage')
       })
