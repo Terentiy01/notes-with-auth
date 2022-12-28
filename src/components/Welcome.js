@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth'
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,15 +40,53 @@ function Welcome() {
   return (
     <div className="welcome">
       <h1>Todo-list</h1>
-      <div className="login-container">
-        <input type="email" onChange={handleEmailChange} value={email} />
-        <input
-          type="password"
-          onChange={handlePasswordChange}
-          value={password}
-        />
-        <button onClick={handleSignIn}>Войдите</button>
-        <a href="">Зарегистрироваться</a>
+      <div className="login-register-container">
+        {isRegistering ? (
+          <>
+            <input
+              type="email"
+              placeholder="Введите email"
+              value={registerInfo.email}
+              onChange={(e) =>
+                setRegisterInfo({ ...registerInfo, email: e.target.value })
+              }
+            />
+            <input
+              type="password"
+              placeholder="Введите пароль"
+              value={registerInfo.password}
+              onChange={(e) =>
+                setRegisterInfo({ ...registerInfo, password: e.target.value })
+              }
+            />
+            <input
+              type="password"
+              placeholder="Подтвердите пароль"
+              value={registerInfo.confirmPassword}
+              onChange={(e) =>
+                setRegisterInfo({
+                  ...registerInfo,
+                  confirmPassword: e.target.value,
+                })
+              }
+            />
+            <button onClick={handleRegister}>Регистрация</button>
+            <button onClick={() => setIsRegistering(false)}>Вернуться</button>
+          </>
+        ) : (
+          <>
+            <input type="email" onChange={handleEmailChange} value={email} />
+            <input
+              type="password"
+              onChange={handlePasswordChange}
+              value={password}
+            />
+            <button onClick={handleSignIn}>Войдите</button>
+            <button onClick={() => setIsRegistering(true)}>
+              Зарегистрироваться
+            </button>
+          </>
+        )}
       </div>
     </div>
   )
