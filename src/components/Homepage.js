@@ -3,7 +3,7 @@ import { signOut } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { uid } from 'uid'
-import { set, ref, onValue } from 'firebase/database'
+import { set, ref, onValue, remove } from 'firebase/database'
 
 function Homepage() {
   const [todo, setTodo] = useState('')
@@ -44,6 +44,10 @@ function Homepage() {
     setTodo('')
   }
 
+  const handleDelete = (uid) => {
+    remove(ref(db, `/${auth.currentUser.uid}/${uid}`))
+  }
+
   return (
     <div>
       <input
@@ -54,9 +58,14 @@ function Homepage() {
       />
 
       {todos.map((todo) => {
-        return <h1>{todo.todo}</h1>
+        return (
+          <div key={todo.uidd}>
+            <h1>{todo.todo}</h1>
+            <button>Загрузить</button>
+            <button onClick={() => handleDelete(todo.uidd)}>Удалить</button>
+          </div>
+        )
       })}
-
       <button onClick={writeToDatabase}>Добавить</button>
       <button onClick={handleSignOut}>Выйти</button>
     </div>
