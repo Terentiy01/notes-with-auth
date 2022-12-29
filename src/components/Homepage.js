@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { signOut } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import { uid } from 'uid'
+import { set, ref } from 'firebase/database'
 
 function Homepage() {
+  const [todo, setTodo] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -20,9 +23,25 @@ function Homepage() {
       .catch((err) => alert(err.message))
   }
 
+  const writeToDatabase = () => {
+    const uidd = uid() // 8asjndjk7gfkas5
+    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+      todo: todo,
+      uidd: uidd,
+    })
+
+    setTodo('')
+  }
+
   return (
     <div>
-      <h1>test</h1>
+      <input
+        type="text"
+        placeholder="Добавить заметку..."
+        value={todo}
+        onChange={(e) => setTodo(e.target.value)}
+      />
+      <button onClick={writeToDatabase}>Добавить</button>
       <button onClick={handleSignOut}>Выйти</button>
     </div>
   )
