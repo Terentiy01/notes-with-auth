@@ -3,15 +3,26 @@ import { signOut } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { uid } from 'uid'
-import { set, ref } from 'firebase/database'
+import { set, ref, onValue } from 'firebase/database'
 
 function Homepage() {
   const [todo, setTodo] = useState('')
+  const [todos, setTodos] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (!user) {
+      if (user) {
+        onValue(ref(db, `/${auth.currentUser.uid}`), (snapshot) => {
+          setTodos([])
+          const data = snapshot.val()
+          if (data !== null) {
+            Object.values(data).map((todo) => {
+              setTodos((oldArray) => [...oldArray, todo])
+            })
+          }
+        })
+      } else if (!user) {
         navigate('/')
       }
     })
@@ -41,6 +52,11 @@ function Homepage() {
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
       />
+
+      {todos.map((todo) => {
+        return <h1>{todo.todo}</h1>
+      })}
+
       <button onClick={writeToDatabase}>Добавить</button>
       <button onClick={handleSignOut}>Выйти</button>
     </div>
