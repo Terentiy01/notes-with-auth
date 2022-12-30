@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
@@ -18,6 +18,8 @@ function Homepage() {
   const [todos, setTodos] = useState([])
   const [isEdit, setIsEdit] = useState(false)
   const [tempUidd, setTempUidd] = useState('')
+  const inputRef = useRef(null)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -58,6 +60,7 @@ function Homepage() {
     setIsEdit(true)
     setTodo(todo.todo)
     setTempUidd(todo.uidd)
+    inputRef.current.focus()
   }
 
   const handleEditConfirm = () => {
@@ -83,6 +86,7 @@ function Homepage() {
         placeholder="Добавить заметку..."
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
+        ref={inputRef}
       />
 
       <TransitionGroup>
