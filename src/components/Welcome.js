@@ -6,6 +6,8 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import '../styles/welcome.css'
+import photoWelcome from '../assets/todo-svg.svg'
 
 function Welcome() {
   const [email, setEmail] = useState('')
@@ -60,6 +62,7 @@ function Welcome() {
 
   return (
     <div className="welcome">
+      <img src={photoWelcome} className="todo-svg" />
       <h1>Todo-list</h1>
       <div className="login-register-container">
         {isRegistering ? (
@@ -91,19 +94,40 @@ function Welcome() {
                 })
               }
             />
-            <button onClick={handleRegister}>Регистрация</button>
-            <button onClick={() => setIsRegistering(false)}>Вернуться</button>
+            <button
+              className="sign-in-register-button"
+              onClick={handleRegister}
+            >
+              Регистрация
+            </button>
+            <button
+              className="create-account-button"
+              onClick={() => setIsRegistering(false)}
+            >
+              Вернуться
+            </button>
           </>
         ) : (
           <>
-            <input type="email" onChange={handleEmailChange} value={email} />
+            <input
+              type="email"
+              onChange={handleEmailChange}
+              value={email}
+              placeholder="Email"
+            />
             <input
               type="password"
               onChange={handlePasswordChange}
               value={password}
+              placeholder="Пароль"
             />
-            <button onClick={handleSignIn}>Войдите</button>
-            <button onClick={() => setIsRegistering(true)}>
+            <button className="sign-in-register-button" onClick={handleSignIn}>
+              Войдите
+            </button>
+            <button
+              className="create-account-button"
+              onClick={() => setIsRegistering(true)}
+            >
               Зарегистрироваться
             </button>
           </>

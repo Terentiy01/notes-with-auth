@@ -56,6 +56,11 @@
   color: white;
 }
 
+.create-account-button:hover {
+  background-color: rgba(128, 128, 128, 0.158);
+  margin-top: 10px;
+}
+
 .create-account-button {
   background: none;
   margin-top: 10px;
@@ -64,6 +69,6 @@
 .todo-svg {
   position: absolute;
   bottom: 100px;
-  right: 300px;
+  right: 150px;
   transform: scale(1.3);
 }

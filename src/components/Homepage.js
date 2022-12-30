@@ -4,6 +4,7 @@ import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { uid } from 'uid'
 import { set, ref, onValue, remove, update } from 'firebase/database'
+import '../styles/homepage.css'
 
 function Homepage() {
   const [todo, setTodo] = useState('')
