@@ -12,6 +12,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import photoHomepage from '../assets/todo-homepage.gif'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone'
 
 function Homepage() {
   const [todo, setTodo] = useState('')
@@ -77,6 +78,12 @@ function Homepage() {
     remove(ref(db, `/${auth.currentUser.uid}/${uid}`))
   }
 
+  const handleChanger = (uidd) => {
+    update(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+      completed: (todos.completed = !todos.completed),
+    })
+  }
+
   return (
     <div className="homepage">
       <img src={photoHomepage} className="todo-homepage" />
@@ -91,9 +98,20 @@ function Homepage() {
 
       <TransitionGroup>
         {todos.map((todo) => {
+          const classes = ['todo']
+          if (todo.completed) {
+            classes.push('done')
+          }
+
           return (
             <CSSTransition key={todo.uidd} classNames={'note'} timeout={500}>
-              <div className="todo" key={todo.uidd}>
+              <div className={classes.join(' ')} key={todo.uidd}>
+                <FileDownloadDoneIcon
+                  fontSize="large"
+                  className="checkbox-button"
+                  onClick={() => handleChanger(todo.uidd)}
+                />
+                &nbsp;
                 <p>{todo.todo}</p>
                 <EditIcon
                   fontSize="large"
