@@ -24,7 +24,7 @@ function Welcome() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        navigate('/homepage')
+        navigate('/notes-with-auth/homepage')
       }
     })
   }, [])
@@ -39,7 +39,7 @@ function Welcome() {
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigate('/homepage')
+        navigate('/notes-with-auth/homepage')
       })
       .catch((err) => alert(err.message))
   }
@@ -55,7 +55,7 @@ function Welcome() {
       registerInfo.password
     )
       .then(() => {
-        navigate('/homepage')
+        navigate('/notes-with-auth/homepage')
       })
       .catch((err) => alert(err.message))
   }

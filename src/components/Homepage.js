@@ -36,14 +36,14 @@ function Homepage() {
           }
         })
       } else if (!user) {
-        navigate('/')
+        navigate('/notes-with-auth')
       }
     })
   }, [])
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => navigate('/'))
+      .then(() => navigate('/notes-with-auth'))
       .catch((err) => alert(err.message))
   }
 
