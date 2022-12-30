@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import { uid } from 'uid'
 import { set, ref, onValue, remove, update } from 'firebase/database'
 import '../styles/homepage.css'
+import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
+import DoneIcon from '@mui/icons-material/Done'
 
 function Homepage() {
   const [todo, setTodo] = useState('')
@@ -60,6 +65,7 @@ function Homepage() {
     })
 
     setTodo('')
+    setIsEdit(false)
   }
 
   const handleDelete = (uid) => {
@@ -67,8 +73,9 @@ function Homepage() {
   }
 
   return (
-    <div>
+    <div className="homepage">
       <input
+        className="add-edit-input"
         type="text"
         placeholder="Добавить заметку..."
         value={todo}
@@ -77,23 +84,35 @@ function Homepage() {
 
       {todos.map((todo) => {
         return (
-          <div key={todo.uidd}>
-            <h1>{todo.todo}</h1>
-            <button onClick={() => handleUpdate(todo)}>Изменить</button>
-            <button onClick={() => handleDelete(todo.uidd)}>Удалить</button>
+          <div className="todo" key={todo.uidd}>
+            <p>{todo.todo}</p>
+            <EditIcon
+              fontSize="large"
+              className="edit-button"
+              onClick={() => handleUpdate(todo)}
+            />
+            <DeleteForeverIcon
+              fontSize="large"
+              className="delete-button"
+              onClick={() => handleDelete(todo.uidd)}
+            />
           </div>
         )
       })}
       {isEdit ? (
         <div>
-          <button onClick={handleEditConfirm}>Подтвердить</button>
+          <DoneIcon onClick={handleEditConfirm} className="add-confirm-icon" />
         </div>
       ) : (
         <div>
-          <button onClick={writeToDatabase}>Добавить</button>
+          <AddIcon onClick={writeToDatabase} className="add-confirm-icon" />
         </div>
       )}
-      <button onClick={handleSignOut}>Выйти</button>
+      <LogoutOutlinedIcon
+        fontSize="large"
+        onClick={handleSignOut}
+        className="logout-icon"
+      />
     </div>
   )
 }

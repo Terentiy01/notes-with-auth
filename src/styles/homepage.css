@@ -1,7 +1,9 @@
 .homepage {
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(122.19deg, #da2079 1.89%, #2a00d5 113.56%);
+  /* background: linear-gradient(90deg, #b9deed, #efefef); */
+  background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +19,7 @@
   height: 30px;
   font-size: 25px;
   padding: 5px 20px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .add-confirm-icon {
@@ -35,10 +38,25 @@
   margin-bottom: 10px;
 }
 
-.todo > h1 {
+/* .todo > h2 {
   width: 500px;
-  background-color: rgb(211, 211, 211);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 5px 10px;
+} */
+
+.todo > p {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 5px #607d8b;
+  display: flex;
+  font-size: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 4px;
+  transition-duration: 0.5s;
+  transition-property: all;
+  width: 600px;
+  word-break: break-word;
 }
 
 .edit-button,
@@ -53,6 +71,5 @@
   top: 10px;
   right: 10px;
   padding: 20px;
-  background: red;
   color: white;
 }

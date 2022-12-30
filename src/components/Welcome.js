@@ -63,7 +63,7 @@ function Welcome() {
   return (
     <div className="welcome">
       <img src={photoWelcome} className="todo-svg" />
-      <h1>Todo-list</h1>
+      <p>Заметки</p>
       <div className="login-register-container">
         {isRegistering ? (
           <>
