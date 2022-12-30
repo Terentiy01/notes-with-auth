@@ -113,6 +113,9 @@ function Homepage() {
         onClick={handleSignOut}
         className="logout-icon"
       />
+      <p className="version" style={{ textAlign: 'center', fontSize: '20px' }}>
+        Версия <strong>0.30</strong>
+      </p>
     </div>
   )
 }
