@@ -10,6 +10,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import DoneIcon from '@mui/icons-material/Done'
+import photoHomepage from '../assets/todo-homepage.gif'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 function Homepage() {
   const [todo, setTodo] = useState('')
@@ -74,6 +76,7 @@ function Homepage() {
 
   return (
     <div className="homepage">
+      <img src={photoHomepage} className="todo-homepage" />
       <input
         className="add-edit-input"
         type="text"
@@ -82,23 +85,28 @@ function Homepage() {
         onChange={(e) => setTodo(e.target.value)}
       />
 
-      {todos.map((todo) => {
-        return (
-          <div className="todo" key={todo.uidd}>
-            <p>{todo.todo}</p>
-            <EditIcon
-              fontSize="large"
-              className="edit-button"
-              onClick={() => handleUpdate(todo)}
-            />
-            <DeleteForeverIcon
-              fontSize="large"
-              className="delete-button"
-              onClick={() => handleDelete(todo.uidd)}
-            />
-          </div>
-        )
-      })}
+      <TransitionGroup>
+        {todos.map((todo) => {
+          return (
+            <CSSTransition key={todo.uidd} classNames={'note'} timeout={500}>
+              <div className="todo" key={todo.uidd}>
+                <p>{todo.todo}</p>
+                <EditIcon
+                  fontSize="large"
+                  className="edit-button"
+                  onClick={() => handleUpdate(todo)}
+                />
+                <DeleteForeverIcon
+                  fontSize="large"
+                  className="delete-button"
+                  onClick={() => handleDelete(todo.uidd)}
+                />
+              </div>
+            </CSSTransition>
+          )
+        })}
+      </TransitionGroup>
+
       {isEdit ? (
         <div>
           <DoneIcon onClick={handleEditConfirm} className="add-confirm-icon" />
@@ -114,7 +122,7 @@ function Homepage() {
         className="logout-icon"
       />
       <p className="version" style={{ textAlign: 'center', fontSize: '20px' }}>
-        Версия <strong>0.30</strong>
+        Версия <strong>0.50</strong>
       </p>
     </div>
   )

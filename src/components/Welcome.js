@@ -7,7 +7,7 @@ import {
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import '../styles/welcome.css'
-import photoWelcome from '../assets/todo-svg.svg'
+import photoWelcome from '../assets/todo-welcome.svg'
 
 function Welcome() {
   const [email, setEmail] = useState('')
