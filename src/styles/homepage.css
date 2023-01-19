@@ -4,9 +4,10 @@
   background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   position: relative;
+  padding-top: 100px;
 }
 
 .homepage .version {
@@ -44,7 +45,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  margin-bottom: 10px;
+  margin-top: 12px;
 }
 
 .todo > p {
@@ -58,7 +59,7 @@
   padding-top: 4px;
   transition-duration: 0.5s;
   transition-property: all;
-  width: 600px;
+  width: 750px;
   word-break: break-word;
 }
 
@@ -109,7 +110,6 @@
   top: 10px;
   right: 20px;
   padding: 20px;
-  /* color: white; */
 }
 
 .logout-icon:hover {

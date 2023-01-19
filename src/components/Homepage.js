@@ -48,6 +48,9 @@ function Homepage() {
   }
 
   const writeToDatabase = () => {
+    if (todo === '') {
+      return
+    }
     const uidd = uid() // 8asjndjk7gfkas5
     set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
       todo: todo,
@@ -75,6 +78,9 @@ function Homepage() {
   }
 
   const handleDelete = (uid) => {
+    if (isEdit) {
+      return
+    }
     remove(ref(db, `/${auth.currentUser.uid}/${uid}`))
   }
 
