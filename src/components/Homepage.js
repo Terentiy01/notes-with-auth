@@ -91,69 +91,147 @@ function Homepage() {
   }
 
   return (
-    <div className="homepage">
-      <img src={photoHomepage} className="todo-homepage" />
-      <input
-        className="add-edit-input"
-        type="text"
-        placeholder="Добавить заметку..."
-        value={todo}
-        onChange={(e) => setTodo(e.target.value)}
-        ref={inputRef}
-      />
+    <>
+      <div className="container">
+        <img src={photoHomepage} className="todo-homepage" />
+        <div className="wrap">
+          <div className="input-field wrap__item">
+            <input
+              ref={inputRef}
+              placeholder="Добавьте заметку..."
+              className="add-edit-input wrap__input"
+              value={todo}
+              onChange={(e) => setTodo(e.target.value)}
+              id="title"
+            ></input>
 
-      <TransitionGroup>
-        {todos.map((todo) => {
-          const classes = ['todo']
-          if (todo.completed) {
-            classes.push('done')
-          }
-
-          return (
-            <CSSTransition key={todo.uidd} classNames={'note'} timeout={500}>
-              <div className={classes.join(' ')} key={todo.uidd}>
-                <FileDownloadDoneIcon
-                  fontSize="large"
-                  className="checkbox-button"
-                  onClick={() => handleChanger(todo.uidd)}
-                />
-                &nbsp;
-                <p>{todo.todo}</p>
-                <EditIcon
-                  fontSize="large"
-                  className="edit-button"
-                  onClick={() => handleUpdate(todo)}
-                />
-                <DeleteForeverIcon
-                  fontSize="large"
-                  className="delete-button"
-                  onClick={() => handleDelete(todo.uidd)}
-                />
-              </div>
-            </CSSTransition>
-          )
-        })}
-      </TransitionGroup>
-
-      {isEdit ? (
-        <div>
-          <DoneIcon onClick={handleEditConfirm} className="add-confirm-icon" />
+            {isEdit ? (
+              <DoneIcon
+                onClick={handleEditConfirm}
+                className="add-confirm-icon"
+              />
+            ) : (
+              <AddIcon onClick={writeToDatabase} className="add-confirm-icon" />
+            )}
+          </div>
         </div>
-      ) : (
-        <div>
-          <AddIcon onClick={writeToDatabase} className="add-confirm-icon" />
-        </div>
-      )}
-      <LogoutOutlinedIcon
-        fontSize="large"
-        onClick={handleSignOut}
-        className="logout-icon"
-      />
-      <p className="version" style={{ textAlign: 'center', fontSize: '20px' }}>
-        Версия <strong>0.50</strong>
-      </p>
-    </div>
+
+        {!todos.length && (
+          <p style={{ textAlign: 'center', fontSize: '20px' }}>
+            Заметок нет, добавьте что нибудь!
+          </p>
+        )}
+
+        <TransitionGroup>
+          {todos.map((todo) => {
+            const classes = ['todo']
+            if (todo.completed) {
+              classes.push('done')
+            }
+
+            return (
+              <CSSTransition key={todo.uidd} classNames={'note'} timeout={500}>
+                <div className={classes.join(' ')}>
+                  <FileDownloadDoneIcon
+                    fontSize="large"
+                    className="change-button"
+                    onClick={() => handleChanger(todo.uidd)}
+                  />
+                  <span>{todo.todo}</span>
+                  <EditIcon
+                    fontSize="large"
+                    onClick={() => handleUpdate(todo)}
+                    className="edit-button"
+                  />
+                  <DeleteForeverIcon
+                    fontSize="large"
+                    onClick={() => handleDelete(todo.uidd)}
+                    className="delete-button"
+                  />
+                </div>
+              </CSSTransition>
+            )
+          })}
+        </TransitionGroup>
+        <LogoutOutlinedIcon
+          fontSize="large"
+          onClick={handleSignOut}
+          className="logout-icon"
+        />
+        <p
+          className="version"
+          style={{ textAlign: 'center', fontSize: '20px' }}
+        >
+          Версия <strong>0.80</strong>
+        </p>
+      </div>
+    </>
   )
+
+  // return (
+  //   <div className="homepage">
+  //     <img src={photoHomepage} className="todo-homepage" />
+  //     <input
+  //       className="add-edit-input"
+  //       type="text"
+  //       placeholder="Добавить заметку..."
+  //       value={todo}
+  //       onChange={(e) => setTodo(e.target.value)}
+  //       ref={inputRef}
+  //     />
+
+  //     <TransitionGroup>
+  //       {todos.map((todo) => {
+  //         const classes = ['todo']
+  //         if (todo.completed) {
+  //           classes.push('done')
+  //         }
+
+  //         return (
+  //           <CSSTransition key={todo.uidd} classNames={'note'} timeout={500}>
+  //             <div className={classes.join(' ')} key={todo.uidd}>
+  //               <FileDownloadDoneIcon
+  //                 fontSize="large"
+  //                 className="checkbox-button"
+  //                 onClick={() => handleChanger(todo.uidd)}
+  //               />
+  //               &nbsp;
+  //               <p>{todo.todo}</p>
+  //               <EditIcon
+  //                 fontSize="large"
+  //                 className="edit-button"
+  //                 onClick={() => handleUpdate(todo)}
+  //               />
+  //               <DeleteForeverIcon
+  //                 fontSize="large"
+  //                 className="delete-button"
+  //                 onClick={() => handleDelete(todo.uidd)}
+  //               />
+  //             </div>
+  //           </CSSTransition>
+  //         )
+  //       })}
+  //     </TransitionGroup>
+
+  //     {isEdit ? (
+  //       <div>
+  //         <DoneIcon onClick={handleEditConfirm} className="add-confirm-icon" />
+  //       </div>
+  //     ) : (
+  //       <div>
+  //         <AddIcon onClick={writeToDatabase} className="add-confirm-icon" />
+  //       </div>
+  //     )}
+  //     <LogoutOutlinedIcon
+  //       fontSize="large"
+  //       onClick={handleSignOut}
+  //       className="logout-icon"
+  //     />
+  //     <p className="version" style={{ textAlign: 'center', fontSize: '20px' }}>
+  //       Версия <strong>0.50</strong>
+  //     </p>
+  //   </div>
+  // )
 }
 
 export default Homepage
