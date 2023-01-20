@@ -51,7 +51,7 @@ function Homepage() {
     if (todo === '') {
       return
     }
-    const uidd = uid() // 8asjndjk7gfkas5
+    const uidd = uid() // 8asj7gfkas5
     set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
       todo: todo,
       uidd: uidd,
@@ -105,9 +105,8 @@ function Homepage() {
   return (
     <>
       <div className="container">
-        <img src={photoHomepage} className="todo-homepage" />
         <div className="wrap">
-          <div className="input-field wrap__item">
+          <div className="input-field-homepage wrap__item">
             <input
               ref={inputRef}
               placeholder="Добавьте заметку..."
@@ -128,13 +127,11 @@ function Homepage() {
             )}
           </div>
         </div>
-
         {!todos.length && (
           <p style={{ textAlign: 'center', fontSize: '20px' }}>
             Заметок нет, добавьте что нибудь!
           </p>
         )}
-
         <TransitionGroup>
           {todos.map((todo) => {
             const classes = ['todo']
@@ -171,12 +168,16 @@ function Homepage() {
           onClick={handleSignOut}
           className="logout-icon"
         />
-        <p
-          className="version"
-          style={{ textAlign: 'center', fontSize: '20px' }}
-        >
-          Версия <strong>0.80</strong>
-        </p>
+        <div className="versia">
+          <img src={photoHomepage} className="todo-icon" />
+
+          <p
+            className="version"
+            style={{ textAlign: 'center', fontSize: '20px' }}
+          >
+            Версия <strong>1.00</strong>
+          </p>
+        </div>
       </div>
     </>
   )

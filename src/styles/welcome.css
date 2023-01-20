@@ -21,16 +21,16 @@
 .input-field {
   position: absolute;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   flex-direction: column;
   padding: 20px 115px;
   left: 150px;
   top: 360px;
+  text-align: center;
 }
 
 .input-field > ::placeholder {
-  /* color: rgba(78, 195, 224, 0.473); */
   color: rgba(241, 245, 247, 0.842);
 }
 
