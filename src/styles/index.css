@@ -16,3 +16,12 @@ code {
   margin: 0;
   padding: 0;
 }
+
+.input-field input:focus + label {
+  color: #69b7eb !important;
+}
+
+.input-field input:focus {
+  border-bottom: 1px solid #69b7eb !important;
+  box-shadow: 0 1px 0 0 #69b7eb !important;
+}

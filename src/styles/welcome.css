@@ -18,23 +18,23 @@
   color: white;
 }
 
-.login-register-container {
+.input-field {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 20px 50px;
+  padding: 20px 115px;
   left: 150px;
   top: 360px;
-  /* background: #ffffff; */
 }
 
-.login-register-container > ::placeholder {
-  color: rgba(78, 195, 224, 0.473);
+.input-field > ::placeholder {
+  /* color: rgba(78, 195, 224, 0.473); */
+  color: rgba(241, 245, 247, 0.842);
 }
 
-.login-register-container > input {
+.input-field > input {
   height: 30px;
   width: 80%;
   border: 1px solid gray;
@@ -44,14 +44,14 @@
   padding: 5px;
 }
 
-.login-register-container > button {
+.input-field > button {
   padding: 5px 20px;
   border: none;
   margin-bottom: 5px;
   cursor: pointer;
 }
 
-.sign-in-register-button {
+.sign-in {
   background: #69b7eb;
   font-size: 20px;
   margin-top: 10px;
@@ -60,7 +60,7 @@
   color: white;
 }
 
-.sign-in-register-button:hover {
+.sign-in:hover {
   background: #69b7eb;
   font-size: 20px;
   margin-top: 10px;
@@ -70,14 +70,46 @@
   transform: scale(1.1);
 }
 
-.create-account-button:hover {
-  background-color: rgba(224, 215, 215, 0.2);
+.register-button {
+  background: #69b7eb;
+  font-size: 20px;
   margin-top: 10px;
+  font-family: 'Changa One';
+  font-weight: normal;
+  color: white;
+  height: 40px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-button:hover {
+  background: #69b7eb;
+  font-size: 20px;
+  margin-top: 10px;
+  font-family: 'Changa One';
+  font-weight: normal;
+  color: white;
+  transform: scale(1.1);
 }
 
 .create-account-button {
   background: none;
   margin-top: 10px;
+}
+
+.create-account-button:hover {
+  background-color: rgba(224, 215, 215, 0.2);
+  margin-top: 10px;
+}
+
+.back-account-button {
+  background: none;
+}
+
+.back-account-button:hover {
+  background-color: rgba(224, 215, 215, 0.2);
 }
 
 .todo-svg {

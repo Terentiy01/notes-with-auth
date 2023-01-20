@@ -57,14 +57,14 @@ function Welcome() {
       .then(() => {
         navigate('/notes-with-auth/homepage')
       })
-      .catch((err) => alert(err.message))
+      .catch((err) => alert('Некорректная почта'))
   }
 
   return (
     <div className="welcome">
       <img src={photoWelcome} className="todo-svg" />
       <h1>Заметки</h1>
-      <div className="login-register-container">
+      <div className="input-field">
         {isRegistering ? (
           <>
             <input
@@ -94,14 +94,11 @@ function Welcome() {
                 })
               }
             />
-            <button
-              className="sign-in-register-button"
-              onClick={handleRegister}
-            >
+            <h1 className="register-button" onClick={handleRegister}>
               Регистрация
-            </button>
+            </h1>
             <button
-              className="create-account-button"
+              className="back-account-button"
               onClick={() => setIsRegistering(false)}
             >
               Вернуться
@@ -121,7 +118,7 @@ function Welcome() {
               value={password}
               placeholder="Пароль"
             />
-            <button className="sign-in-register-button" onClick={handleSignIn}>
+            <button className="sign-in" onClick={handleSignIn}>
               Войдите
             </button>
             <button
