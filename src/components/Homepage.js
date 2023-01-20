@@ -90,6 +90,18 @@ function Homepage() {
     })
   }
 
+  const writeToDatabaseKeyPress = (e) => {
+    if (e.key === 'Enter' && todo !== '' && !isEdit) {
+      const uidd = uid()
+      set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+        todo: todo,
+        uidd: uidd,
+        completed: false,
+      })
+      setTodo('')
+    }
+  }
+
   return (
     <>
       <div className="container">
@@ -103,6 +115,7 @@ function Homepage() {
               value={todo}
               onChange={(e) => setTodo(e.target.value)}
               id="title"
+              onKeyPress={writeToDatabaseKeyPress}
             ></input>
 
             {isEdit ? (
