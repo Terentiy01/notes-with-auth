@@ -57,7 +57,7 @@ function Welcome() {
       .then(() => {
         navigate('/notes-with-auth/homepage')
       })
-      .catch((err) => alert('Некорректная почта'))
+      .catch((err) => alert(err.message))
   }
 
   return (
