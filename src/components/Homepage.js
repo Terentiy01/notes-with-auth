@@ -139,28 +139,133 @@ function Homepage() {
               classes.push('done')
             }
 
-            return (
-              <CSSTransition key={todo.uidd} classNames={'note'} timeout={500}>
-                <div className={classes.join(' ')}>
-                  <FileDownloadDoneIcon
-                    fontSize="large"
-                    className="change-button"
-                    onClick={() => handleChanger(todo.uidd)}
-                  />
-                  <span>{todo.todo}</span>
-                  <EditIcon
-                    fontSize="large"
-                    onClick={() => handleUpdate(todo)}
-                    className="edit-button"
-                  />
-                  <DeleteForeverIcon
-                    fontSize="large"
-                    onClick={() => handleDelete(todo.uidd)}
-                    className="delete-button"
-                  />
-                </div>
-              </CSSTransition>
-            )
+            const word = todo.todo
+            const wordEnd = word.indexOf('https')
+            const wordStart = word.indexOf(' ')
+
+            if (word.startsWith('https') && word.indexOf(' ') !== -1) {
+              return (
+                <CSSTransition
+                  key={todo.uidd}
+                  classNames={'note'}
+                  timeout={500}
+                >
+                  <div className={classes.join(' ')}>
+                    <FileDownloadDoneIcon
+                      fontSize="large"
+                      className="change-button"
+                      onClick={() => handleChanger(todo.uidd)}
+                    />
+
+                    <a href={word.substring(0, wordStart)}>
+                      <span>{word}</span>
+                    </a>
+
+                    <EditIcon
+                      fontSize="large"
+                      onClick={() => handleUpdate(todo)}
+                      className="edit-button"
+                    />
+                    <DeleteForeverIcon
+                      fontSize="large"
+                      onClick={() => handleDelete(todo.uidd)}
+                      className="delete-button"
+                    />
+                  </div>
+                </CSSTransition>
+              )
+            } else if (word.includes('https')) {
+              return (
+                <CSSTransition
+                  key={todo.uidd}
+                  classNames={'note'}
+                  timeout={500}
+                >
+                  <div className={classes.join(' ')}>
+                    <FileDownloadDoneIcon
+                      fontSize="large"
+                      className="change-button"
+                      onClick={() => handleChanger(todo.uidd)}
+                    />
+
+                    <a href={word.substring(wordEnd)}>
+                      <span>{word}</span>
+                    </a>
+
+                    <EditIcon
+                      fontSize="large"
+                      onClick={() => handleUpdate(todo)}
+                      className="edit-button"
+                    />
+                    <DeleteForeverIcon
+                      fontSize="large"
+                      onClick={() => handleDelete(todo.uidd)}
+                      className="delete-button"
+                    />
+                  </div>
+                </CSSTransition>
+              )
+            } else if (word.startsWith('https') && word.indexOf(' ') === -1) {
+              return (
+                <CSSTransition
+                  key={todo.uidd}
+                  classNames={'note'}
+                  timeout={500}
+                >
+                  <div className={classes.join(' ')}>
+                    <FileDownloadDoneIcon
+                      fontSize="large"
+                      className="change-button"
+                      onClick={() => handleChanger(todo.uidd)}
+                    />
+
+                    <a href={word}>
+                      <span>{word}</span>
+                    </a>
+
+                    <EditIcon
+                      fontSize="large"
+                      onClick={() => handleUpdate(todo)}
+                      className="edit-button"
+                    />
+                    <DeleteForeverIcon
+                      fontSize="large"
+                      onClick={() => handleDelete(todo.uidd)}
+                      className="delete-button"
+                    />
+                  </div>
+                </CSSTransition>
+              )
+            } else {
+              return (
+                <CSSTransition
+                  key={todo.uidd}
+                  classNames={'note'}
+                  timeout={500}
+                >
+                  <div className={classes.join(' ')}>
+                    <FileDownloadDoneIcon
+                      fontSize="large"
+                      className="change-button"
+                      onClick={() => handleChanger(todo.uidd)}
+                    />
+
+                    <span>{word}</span>
+
+                    <EditIcon
+                      fontSize="large"
+                      onClick={() => handleUpdate(todo)}
+                      className="edit-button"
+                    />
+                    <DeleteForeverIcon
+                      fontSize="large"
+                      onClick={() => handleDelete(todo.uidd)}
+                      className="delete-button"
+                    />
+                  </div>
+                </CSSTransition>
+              )
+            }
           })}
         </TransitionGroup>
         <LogoutOutlinedIcon
