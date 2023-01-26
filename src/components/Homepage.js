@@ -47,27 +47,57 @@ function Homepage() {
       .catch((err) => alert(err.message))
   }
 
+  // add
   const writeToDatabase = () => {
-    if (todo === '') {
-      return
-    }
-    const uidd = uid() // 8asj7gfkas5
-    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
-      todo: todo,
-      uidd: uidd,
-    })
+    if (todo.trim() !== '') {
+      const uidd = uid()
+      set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+        todo: todo,
+        uidd: uidd,
+        completed: false,
+      })
 
-    setTodo('')
+      setTodo('')
+    }
   }
 
+  const writeToDatabaseKeyPress = (e) => {
+    if (e.key === 'Enter' && todo.trim() !== '' && !isEdit) {
+      const uidd = uid()
+      set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+        todo: todo,
+        uidd: uidd,
+        completed: false,
+      })
+
+      setTodo('')
+    }
+  }
+
+  // update
   const handleUpdate = (todo) => {
+    inputRef.current.focus()
     setIsEdit(true)
     setTodo(todo.todo)
     setTempUidd(todo.uidd)
-    inputRef.current.focus()
   }
 
+  // delete
+  const handleDelete = (uid) => {
+    if (!isEdit) {
+      remove(ref(db, `/${auth.currentUser.uid}/${uid}`))
+    }
+  }
+
+  //confirm update
   const handleEditConfirm = () => {
+    if (todo.trim() === '') {
+      remove(ref(db, `/${auth.currentUser.uid}/${tempUidd}`))
+      setTodo('')
+      setIsEdit(false)
+      return
+    }
+
     update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), {
       todo: todo,
       tempUidd: tempUidd,
@@ -77,29 +107,11 @@ function Homepage() {
     setIsEdit(false)
   }
 
-  const handleDelete = (uid) => {
-    if (isEdit) {
-      return
-    }
-    remove(ref(db, `/${auth.currentUser.uid}/${uid}`))
-  }
-
+  // change to done
   const handleChanger = (uidd) => {
     update(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
       completed: (todos.completed = !todos.completed),
     })
-  }
-
-  const writeToDatabaseKeyPress = (e) => {
-    if (e.key === 'Enter' && todo !== '' && !isEdit) {
-      const uidd = uid()
-      set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
-        todo: todo,
-        uidd: uidd,
-        completed: false,
-      })
-      setTodo('')
-    }
   }
 
   return (
@@ -140,10 +152,9 @@ function Homepage() {
             }
 
             const word = todo.todo
-            const wordEnd = word.indexOf('https')
-            const wordStart = word.indexOf(' ')
+            const wordMiddle = word.match(/(https?:\/\/[^\s]+)/)
 
-            if (word.startsWith('https') && word.indexOf(' ') !== -1) {
+            if (wordMiddle) {
               return (
                 <CSSTransition
                   key={todo.uidd}
@@ -157,69 +168,12 @@ function Homepage() {
                       onClick={() => handleChanger(todo.uidd)}
                     />
 
-                    <a href={word.substring(0, wordStart)}>
-                      <span>{word}</span>
-                    </a>
-
-                    <EditIcon
-                      fontSize="large"
-                      onClick={() => handleUpdate(todo)}
-                      className="edit-button"
-                    />
-                    <DeleteForeverIcon
-                      fontSize="large"
-                      onClick={() => handleDelete(todo.uidd)}
-                      className="delete-button"
-                    />
-                  </div>
-                </CSSTransition>
-              )
-            } else if (word.includes('https')) {
-              return (
-                <CSSTransition
-                  key={todo.uidd}
-                  classNames={'note'}
-                  timeout={500}
-                >
-                  <div className={classes.join(' ')}>
-                    <FileDownloadDoneIcon
-                      fontSize="large"
-                      className="change-button"
-                      onClick={() => handleChanger(todo.uidd)}
-                    />
-
-                    <a href={word.substring(wordEnd)}>
-                      <span>{word}</span>
-                    </a>
-
-                    <EditIcon
-                      fontSize="large"
-                      onClick={() => handleUpdate(todo)}
-                      className="edit-button"
-                    />
-                    <DeleteForeverIcon
-                      fontSize="large"
-                      onClick={() => handleDelete(todo.uidd)}
-                      className="delete-button"
-                    />
-                  </div>
-                </CSSTransition>
-              )
-            } else if (word.startsWith('https') && word.indexOf(' ') === -1) {
-              return (
-                <CSSTransition
-                  key={todo.uidd}
-                  classNames={'note'}
-                  timeout={500}
-                >
-                  <div className={classes.join(' ')}>
-                    <FileDownloadDoneIcon
-                      fontSize="large"
-                      className="change-button"
-                      onClick={() => handleChanger(todo.uidd)}
-                    />
-
-                    <a href={word}>
+                    <a
+                      href={word.substring(
+                        wordMiddle.index,
+                        wordMiddle.index + wordMiddle[0].length
+                      )}
+                    >
                       <span>{word}</span>
                     </a>
 
